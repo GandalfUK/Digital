@@ -179,7 +179,10 @@ public class Switch implements Element, NodeInterface {
         void setModel(Model model);
     }
 
-    private static final class SimpleSwitch implements SwitchModel {
+    /**
+     * represents a switch
+     */
+    public static final class SimpleSwitch implements SwitchModel {
         private final ObservableValue input;
         private final ObservableValue output;
         private boolean closed;
@@ -216,7 +219,13 @@ public class Switch implements Element, NodeInterface {
         private final CommonBusValue input2;
         private BusModelStateObserver obs;
 
-        private RealSwitch(CommonBusValue input1, CommonBusValue input2) {
+    /**
+         * Creates a new instance.
+         *
+     * @param input1 The first input.
+     * @param input2 The second input.
+         */
+        public RealSwitch(CommonBusValue input1, CommonBusValue input2) {
             this.input1 = input1;
             this.input2 = input2;
         }

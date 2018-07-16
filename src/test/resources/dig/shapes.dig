@@ -389,9 +389,19 @@
       <pos x="500" y="480"/>
     </visualElement>
     <visualElement>
+      <elementName>SwitchDT</elementName>
+      <elementAttributes/>
+      <pos x="500" y="520"/>
+    </visualElement>
+    <visualElement>
       <elementName>Relay</elementName>
       <elementAttributes/>
       <pos x="1100" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RelayDT</elementName>
+      <elementAttributes/>
+      <pos x="1100" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>

@@ -104,8 +104,10 @@ public final class ShapeFactory {
         map.put(DipSwitch.DESCRIPTION.getName(), DipSwitchShape::new);
 
         map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
+        map.put(SwitchDT.DESCRIPTION.getName(), SwitchDTShape::new);
         map.put(Fuse.DESCRIPTION.getName(), FuseShape::new);
         map.put(Relay.DESCRIPTION.getName(), RelayShape::new);
+        map.put(RelayDT.DESCRIPTION.getName(), RelayDTShape::new);
         map.put(NFET.DESCRIPTION.getName(), FETShapeN::new);
         map.put(FGNFET.DESCRIPTION.getName(), FGFETShapeN::new);
         map.put(FGPFET.DESCRIPTION.getName(), FGFETShapeP::new);

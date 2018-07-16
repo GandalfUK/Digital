@@ -658,6 +658,12 @@
     <string name="elem_Switch_pin_out2">Einer der Anschlüsse des Schalters.</string>
     <string name="elem_Switch_tt">Einfacher Schalter. Der Schalter hat keine Gatterlaufzeit.
         Eine Signaländerung wird instantan von einem Ende des Schalters zum anderen propagiert.</string>
+    <string name="elem_SwitchDT">Wechselschalter</string>
+    <string name="elem_SwitchDT_tt">Einfacher Wechselschalter. Der Wechselschalter hat keine Gatterlaufzeit.
+        Eine Signaländerung wird instantan von einem Ende des Wechselschalter zum anderen propagiert.</string>
+    <string name="elem_SwitchDT_pin_out1">Einer der Anschlüsse des Wechselschalter.</string>
+    <string name="elem_SwitchDT_pin_out2">Einer der Anschlüsse des Wechselschalter.</string>
+	<string name="elem_SwitchDT_pin_out3">Einer der Anschlüsse des Wechselschalter.</string>
     <string name="elem_Fuse">Fuse</string>
     <string name="elem_Fuse_tt">Eine Sicherung, die verwendet werden kann, um einen einmal programmierbaren Speicher aufzubauen.</string>
     <string name="elem_Fuse_pin_out1">Einer der Ausgänge der Sicherung.</string>
@@ -672,6 +678,17 @@
     <string name="elem_Relay_pin_in2">Ein Steuereingang des Relais.</string>
     <string name="elem_Relay_pin_out1">Einer der Ausgänge des gesteuerten Schalters.</string>
     <string name="elem_Relay_pin_out2">Einer der Ausgänge des gesteuerten Schalters.</string>
+    <string name="elem_RelayDT">Umschaltrelais</string>
+    <string name="elem_RelayDT_tt">Ein Umschaltrelais ist ein Wechselschalter, welcher über eine Spule umgeschaltet werden kann.
+        Wenn ein Strom durch das Umschaltrelais fließt, wird der Wechselschalter geöffnet bzw. geschlossen.
+        Es gibt keine Freilaufdiode, sodass die Stromrichtung keine Rolle spielt.
+        Der Wechselschalter wird betätigt, wenn die Eingänge unterschiedliche Werte haben.
+        Das Umschaltrelais verhält sich damit ähnlich wie ein XOr Gatter.</string>
+    <string name="elem_RelayDT_pin_in1">Ein Steuereingang des Umschaltrelais.</string>
+    <string name="elem_RelayDT_pin_in2">Ein Steuereingang des Umschaltrelais.</string>
+    <string name="elem_RelayDT_pin_out1">Einer der Ausgänge des gesteuerten Wechselschalter.</string>
+    <string name="elem_RelayDT_pin_out2">Einer der Ausgänge des gesteuerten Wechselschalter.</string>
+    <string name="elem_RelayDT_pin_out3">Einer der Ausgänge des gesteuerten Wechselschalter.</string>
     <string name="elem_PFET">P-Kanal FET</string>
     <string name="elem_PFET_tt">P-Kanal Feldeffekttransistor.
         Der Bulk ist mit der pos. Versorgung verbunden. Der Transistor wird ohne eine Body-Diode simuliert.</string>
@@ -917,7 +934,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
-    <string name="key_Bits">Daten-Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
+    <string name="key_Bits">Daten-Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, SwitchDT, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
     <string name="key_Bits_tt">Anzahl der Daten-Bits, die verwendet werden.</string>
     <string name="key_Color">Farbe</string><!-- LED, LightBulb, Seven-Seg, Seven-Seg-Hex, LedMatrix -->
     <string name="key_Color_tt">Die Farbe des Elementes.</string>
@@ -943,7 +960,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_IEEEShapes_tt">Verwende IEEE 91-1984 Symbole anstelle der rechteckigen Symbole</string>
     <string name="key_Inputs">Anzahl der Eingänge</string><!-- And, NAnd, Or, NOr, XOr, XNOr, LookUpTable -->
     <string name="key_Inputs_tt">Legt die Anzahl der Eingänge fest. Alle Eingänge müssen beschaltet werden.</string>
-    <string name="key_Label">Bezeichnung</string><!-- Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, Relay, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
+    <string name="key_Label">Bezeichnung</string><!-- Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, SwitchDT, Relay, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
     <string name="key_Label_tt">Die Bezeichnung dieses Elementes.</string>
     <string name="key_Size">Größe</string><!-- LED -->
     <string name="key_Size_tt">Die Größe der LED in der Schaltung.</string>
@@ -1004,7 +1021,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_maxStepCount_tt">Die maximale Anzahl an Messpunkten, die gespeichert werden, bevor die ältesten Messungen verworfen werden.</string>
     <string name="key_microStep">Zeige Einzelgatterschritte</string><!-- Data -->
     <string name="key_microStep_tt">Zeigt in der Grafik alle Einzelgatterschritte an.</string>
-    <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, Fuse, Relay, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
+    <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, SwitchDT, Fuse, Relay, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
     <string name="key_rotation_tt">Legt die Ausrichtung des Elementes in der Schaltung fest.</string>
     <string name="key_runRealTime">Echtzeittakt starten</string><!-- Clock -->
     <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet.</string>

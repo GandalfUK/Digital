@@ -656,6 +656,12 @@
         There is no gate delay: A signal change is propagated immediately.</string>
     <string name="elem_Switch_pin_out1">One of the connections of the switch.</string>
     <string name="elem_Switch_pin_out2">One of the connections of the switch.</string>
+    <string name="elem_SwitchDT">Double Throw Switch</string>
+    <string name="elem_SwitchDT_tt">Simple double throw switch.
+        There is no gate delay: A signal change is propagated immediately.</string>
+    <string name="elem_SwitchDT_pin_out1">One of the connections of the double throw switch.</string>
+    <string name="elem_SwitchDT_pin_out2">One of the connections of the double throw switch.</string>
+	<string name="elem_SwitchDT_pin_out3">One of the connections of the double throw switch.</string>
     <string name="elem_Fuse">Fuse</string>
     <string name="elem_Fuse_tt">A fuse used to build a one time programmable memory.</string>
     <string name="elem_Fuse_pin_out1">One of the connections of the fuse.</string>
@@ -670,6 +676,17 @@
     <string name="elem_Relay_pin_in2">On of the inputs to control the relay.</string>
     <string name="elem_Relay_pin_out1">One of the switch outputs.</string>
     <string name="elem_Relay_pin_out2">One of the switch outputs.</string>
+    <string name="elem_RelayDT">Double Throw Relay</string>
+    <string name="elem_RelayDT_tt">A relay is a switch which can be controlled by a coil.
+        If a current flows through the coil, the switch is closed or opened.
+        There is no flyback diode so the current direction does not matter.
+        The switch is actuated if the inputs have different values.
+        The relay behaves similar to an XOr gate.</string>
+    <string name="elem_RelayDT_pin_in1">On of the inputs to control the relay.</string>
+    <string name="elem_RelayDT_pin_in2">On of the inputs to control the relay.</string>
+    <string name="elem_RelayDT_pin_out1">One of the switch outputs.</string>
+    <string name="elem_RelayDT_pin_out2">One of the switch outputs.</string>
+    <string name="elem_RelayDT_pin_out3">One of the switch outputs.</string>
     <string name="elem_PFET">P-Channel FET</string>
     <string name="elem_PFET_tt">P-Channel Field Effect Transistor.
         The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.</string>
@@ -913,7 +930,7 @@
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
-    <string name="key_Bits">Data Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
+    <string name="key_Bits">Data Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, SwitchDT, Relay, RelayDT, PFET, NFET, FGPFET, FGNFET, TransGate -->
     <string name="key_Bits_tt">Number of data bits used.</string>
     <string name="key_Color">Color</string><!-- LED, LightBulb, Seven-Seg, Seven-Seg-Hex, LedMatrix -->
     <string name="key_Color_tt">The Color of the element.</string>
@@ -939,7 +956,7 @@
     <string name="key_IEEEShapes_tt">Use IEEE 91-1984 shapes instead of rectangular shapes</string>
     <string name="key_Inputs">Number of Inputs</string><!-- And, NAnd, Or, NOr, XOr, XNOr, LookUpTable -->
     <string name="key_Inputs_tt">The Number of Inputs used. Every input needs to be connected.</string>
-    <string name="key_Label">Label</string><!-- Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, Relay, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
+    <string name="key_Label">Label</string><!-- Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, SwitchDT, Relay, RelayDT, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
     <string name="key_Label_tt">The name of this element.</string>
     <string name="key_Size">Size</string><!-- LED -->
     <string name="key_Size_tt">The size of the LED in the circuit.</string>
@@ -999,7 +1016,7 @@
         If the maximum number is reached, the oldest values are discarded.</string>
     <string name="key_microStep">Show single gate steps</string><!-- Data -->
     <string name="key_microStep_tt">Shows all single step steps in the graphic.</string>
-    <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, Fuse, Relay, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
+    <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, SwitchDT, Fuse, Relay, RelayDT, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
     <string name="key_rotation_tt">The orientation of the Element in the circuit.</string>
     <string name="key_runRealTime">Start real time clock</string><!-- Clock -->
     <string name="key_runRealTime_tt">If enabled the runtime clock is started when the circuit is started</string>

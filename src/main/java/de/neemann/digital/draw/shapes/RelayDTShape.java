@@ -26,9 +26,11 @@ public class RelayDTShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
-    private boolean invers;
+    private final int poles;
+    private final boolean invers;
     private RelayDT relay;
     private boolean relayIsClosed;
+    private Pins pins;
 
     /**
      * Creates a new instance
@@ -40,19 +42,27 @@ public class RelayDTShape implements Shape {
     public RelayDTShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
+        label = attributes.getCleanLabel();
+        poles = attributes.get(Keys.POLES);
         invers = attributes.get(Keys.RELAY_NORMALLY_CLOSED);
         relayIsClosed = invers;
-        label = attributes.getCleanLabel();
     }
 
     @Override
     public Pins getPins() {
-        return new Pins()
-                .add(new Pin(new Vector(0, -SIZE * 2), inputs.get(0)))
-                .add(new Pin(new Vector(SIZE * 2, -SIZE * 2), inputs.get(1)))
-                .add(new Pin(new Vector(0, 0), outputs.get(0)))
-                .add(new Pin(new Vector(SIZE * 2, 0), outputs.get(1)))
-                .add(new Pin(new Vector(SIZE * 2, -SIZE), outputs.get(2)));
+        if (pins == null) {
+            pins = new Pins()
+                    .add(new Pin(new Vector(0, -SIZE * 3), inputs.get(0)))
+                    .add(new Pin(new Vector(SIZE * 2, -SIZE * 3), inputs.get(1)));
+
+            for (int p = 0; p < poles; p++)
+                pins
+                    .add(new Pin(new Vector(0, p * SIZE * 2), outputs.get(p * 4)))
+                    .add(new Pin(new Vector(0, p * SIZE * 2), outputs.get(p * 4 + 1)))
+                    .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2), outputs.get(p * 4 + 2)))
+                    .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2 - SIZE), outputs.get(p * 4 + 3)));
+        }
+        return pins;
     }
 
     @Override
@@ -71,26 +81,35 @@ public class RelayDTShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        int yOffs = SIZE / 4;
-        graphic.drawLine(new Vector(0, 0), new Vector(0, -SIZE2), Style.NORMAL);
+        final int relayBaseY = 2 * SIZE;
+        final int relayTipY;
         if (relayIsClosed) {
-            graphic.drawLine(new Vector(0, -SIZE2), new Vector(SIZE * 2, 0), Style.NORMAL);
+            relayTipY = 0;
         } else {
-            yOffs = 3 * SIZE / 4;
-            graphic.drawLine(new Vector(0, -SIZE2), new Vector(SIZE * 2, -SIZE), Style.NORMAL);
+            relayTipY = SIZE;
         }
-        graphic.drawLine(new Vector(SIZE, -yOffs), new Vector(SIZE, 1 - SIZE), Style.THIN);
+        int yOffs = (SIZE / 4) + (relayTipY / 2);
 
+        for (int p = 0; p < poles; p++) {
+            graphic.drawPolygon(new Polygon(false)
+                                .add(0, p * relayBaseY)
+                                .add(0, (p * relayBaseY) - SIZE2)
+                                .add(SIZE * 2, (p * relayBaseY) - relayTipY), Style.NORMAL);
+        }
+
+        graphic.drawLine(new Vector(SIZE, (poles - 1) * SIZE * 2 - yOffs), new Vector(SIZE, 1 - SIZE * 2), Style.DASH);
+
+        // the coil
         graphic.drawPolygon(new Polygon(true)
-                .add(SIZE2, -SIZE)
-                .add(SIZE2, -SIZE * 3)
-                .add(SIZE + SIZE2, -SIZE * 3)
-                .add(SIZE + SIZE2, -SIZE), Style.NORMAL);
+                .add(SIZE2, -SIZE * 2)
+                .add(SIZE2, -SIZE * 4)
+                .add(SIZE + SIZE2, -SIZE * 4)
+                .add(SIZE + SIZE2, -SIZE * 2), Style.NORMAL);
 
-        graphic.drawLine(new Vector(SIZE2, -SIZE - SIZE2), new Vector(SIZE + SIZE2, -SIZE * 2 - SIZE2), Style.THIN);
+        graphic.drawLine(new Vector(SIZE2, -SIZE * 2 - SIZE2), new Vector(SIZE + SIZE2, -SIZE * 3 - SIZE2), Style.THIN);
 
-        graphic.drawLine(new Vector(SIZE2, -SIZE * 2), new Vector(0, -SIZE * 2), Style.NORMAL);
-        graphic.drawLine(new Vector(SIZE + SIZE2, -SIZE * 2), new Vector(SIZE * 2, -SIZE * 2), Style.NORMAL);
+        graphic.drawLine(new Vector(SIZE2, -SIZE * 3), new Vector(0, -SIZE * 3), Style.NORMAL);
+        graphic.drawLine(new Vector(SIZE + SIZE2, -SIZE * 3), new Vector(SIZE * 2, -SIZE * 3), Style.NORMAL);
 
         if (label != null && label.length() > 0)
             graphic.drawText(new Vector(SIZE, 4), new Vector(SIZE * 2, 4), label, Orientation.CENTERTOP, Style.SHAPE_PIN);

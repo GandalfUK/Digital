@@ -10,31 +10,30 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.draw.elements.PinException;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * A simple double-throw relay.
+ * A simple relay.
  */
 public class RelayDT extends Node implements Element {
 
     /**
-     * The RelayDT description
+     * The switch description
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RelayDT.class, input("in1"), input("in2"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.POLES)
             .addAttribute(Keys.RELAY_NORMALLY_CLOSED);
 
 
+    private final Pole[] poles;
     private final boolean invers;
-    private final SwitchDT s;
     private ObservableValue input1;
     private ObservableValue input2;
-    private boolean state;
-    private boolean stateHighZ;
+    private boolean isClosed;
 
     /**
      * Create a new instance
@@ -42,55 +41,95 @@ public class RelayDT extends Node implements Element {
      * @param attr the attributes
      */
     public RelayDT(ElementAttributes attr) {
-        this(attr, attr.get(Keys.RELAY_NORMALLY_CLOSED));
+        this.invers = attr.get(Keys.RELAY_NORMALLY_CLOSED);
+        int bits = attr.getBits();
+        int poleCount = attr.get(Keys.POLES);
+        poles = new Pole[poleCount];
+        for (int i = 0; i < poleCount; i++)
+            poles[i] = new Pole(bits, i + 1);
     }
 
-    /**
-     * Create a new instance
-     *
-     * @param attr   the attributes
-     * @param invers true if relay is closed on zero in.
-     */
-    public RelayDT(ElementAttributes attr, boolean invers) {
-        this.invers = invers;
-        s = new SwitchDT(attr, invers, "out1", "out2", "out3");
-    }
 
     @Override
-    public ObservableValues getOutputs() throws PinException {
-        return s.getOutputs();
+    public ObservableValues getOutputs() {
+        ObservableValues.Builder ov = new ObservableValues.Builder();
+        for (Pole p : poles)
+            p.addOutputs(ov);
+        return ov.build();
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         input1 = inputs.get(0).checkBits(1, this).addObserverToValue(this);
         input2 = inputs.get(1).checkBits(1, this).addObserverToValue(this);
-        s.setInputs(new ObservableValues(inputs.get(2), inputs.get(3), inputs.get(4)));
+        int i = 2;
+        for (Pole p : poles) {
+            p.setInputs(inputs.get(i), inputs.get(i + 1), inputs.get(i + 2), inputs.get(i + 3));
+            i += 4;
+        }
     }
 
     @Override
-    public void readInputs() throws NodeException {
-        state = input1.getBool() ^ input2.getBool();
-        stateHighZ = input1.isHighZ() || input2.isHighZ();
-    }
-
-    @Override
-    public void writeOutputs() throws NodeException {
-        if (stateHighZ)
-            s.setClosed(invers);
+    public void readInputs() {
+        if (input1.isHighZ() || input2.isHighZ())
+            isClosed = invers;
         else
-            s.setClosed(state ^ invers);
+            isClosed = (input1.getBool() ^ input2.getBool()) ^ invers;
     }
 
     @Override
-    public void init(Model model) throws NodeException {
-        s.init(model);
+    public void writeOutputs() {
+        for (Pole p : poles)
+            p.setClosed(isClosed);
+    }
+
+    @Override
+    public void init(Model model) {
+        for (Pole p : poles)
+            p.init(model);
     }
 
     /**
      * @return true if closed
      */
     public boolean isClosed() {
-        return s.isClosed();
+        return isClosed;
+    }
+
+    private static final class Pole {
+        private final Switch s1;
+        private final Switch s2;
+        private final ObservableValue outputAB;
+        private final ObservableValue outputAC;
+        private final ObservableValue outputB;
+        private final ObservableValue outputC;
+
+        private Pole(int bits, int num) {
+            outputAB = new ObservableValue("AB" + num, bits).setBidirectional().setToHighZ();
+            outputAC = new ObservableValue("AC" + num, bits).setBidirectional().setToHighZ();
+            outputB = new ObservableValue("B" + num, bits).setBidirectional().setToHighZ();
+            outputC = new ObservableValue("C" + num, bits).setBidirectional().setToHighZ();
+            s1 = new Switch(outputAB, outputB, false);
+            s2 = new Switch(outputAC, outputC, true);
+        }
+
+        private void addOutputs(ObservableValues.Builder ov) {
+            ov.add(outputAB, outputAC, outputB, outputC);
+        }
+
+        public void setInputs(ObservableValue inAB, ObservableValue inAC, ObservableValue inB, ObservableValue inC) throws NodeException {
+            s1.setInputs(new ObservableValues(inAB, inB));
+            s2.setInputs(new ObservableValues(inAC, inC));
+        }
+
+        public void init(Model model) {
+            s1.init(model);
+            s2.init(model);
+        }
+
+        public void setClosed(boolean isClosed) {
+            s1.setClosed(isClosed);
+            s2.setClosed(!isClosed);
+        }
     }
 }

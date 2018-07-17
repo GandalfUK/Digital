@@ -52,17 +52,6 @@ public class Switch implements Element, NodeInterface {
     }
 
     /**
-     * Sets this switch to unidirectional
-     *
-     * @param unidirectional the state
-     * @return this for chained calls
-     */
-    public Switch setUnidirectional(Unidirectional unidirectional) {
-        this.unidirectional = unidirectional;
-        return this;
-    }
-
-    /**
      * Creates a new instance
      *
      * @param attr   the elements attributes
@@ -77,6 +66,31 @@ public class Switch implements Element, NodeInterface {
         output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ();
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param closed  initial state
+     * @param output1 first output
+     * @param output2 second output
+     */
+    public Switch(ObservableValue output1, ObservableValue output2, boolean closed) {
+        this.bits = output1.getBits();
+        this.closed = closed;
+        this.output1 = output1;
+        this.output2 = output2;
+    }
+
+    /**
+     * Sets this switch to unidirectional
+     *
+     * @param unidirectional the state
+     * @return this for chained calls
+     */
+    public Switch setUnidirectional(Unidirectional unidirectional) {
+        this.unidirectional = unidirectional;
+        return this;
+    }
+
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         ObservableValue input1 = inputs.get(0).addObserverToValue(this).checkBits(bits, null);
@@ -89,29 +103,29 @@ public class Switch implements Element, NodeInterface {
                         final CommonBusValue in2 = (CommonBusValue) input2;
                         ObservableValue constant = in1.searchConstant();
                         if (constant != null)
-                            switchModel = new SimpleSwitch(constant, output2);
+                            switchModel = new UniDirectionalSwitch(constant, output2);
                         else {
                             constant = in2.searchConstant();
                             if (constant != null)
-                                switchModel = new SimpleSwitch(constant, output1);
+                                switchModel = new UniDirectionalSwitch(constant, output1);
                             else
                                 switchModel = new RealSwitch(in1, in2);
                         }
                     } else
-                        switchModel = new SimpleSwitch(input1, output2);
+                        switchModel = new UniDirectionalSwitch(input1, output2);
                 } else {
                     if (input2 instanceof CommonBusValue) {
-                        switchModel = new SimpleSwitch(input2, output1);
+                        switchModel = new UniDirectionalSwitch(input2, output1);
                     } else {
                         throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
                     }
                 }
                 break;
             case FROM1TO2:
-                switchModel = new SimpleSwitch(input1, output2);
+                switchModel = new UniDirectionalSwitch(input1, output2);
                 break;
             case FROM2TO1:
-                switchModel = new SimpleSwitch(input2, output1);
+                switchModel = new UniDirectionalSwitch(input2, output1);
                 break;
         }
     }
@@ -126,7 +140,7 @@ public class Switch implements Element, NodeInterface {
     }
 
     @Override
-    public void init(Model model) throws NodeException {
+    public void init(Model model) {
         switchModel.setModel(model);
         switchModel.setClosed(closed);
         hasChanged();
@@ -180,14 +194,16 @@ public class Switch implements Element, NodeInterface {
     }
 
     /**
-     * represents a switch
+     * A simple unidirectional switch.
+     * Works like a driver: When the switch is closed, the signal value at the input
+     * is forwarded to the output. When the switch is open, the output is set to HighZ.
      */
-    public static final class SimpleSwitch implements SwitchModel {
+    public static final class UniDirectionalSwitch implements SwitchModel {
         private final ObservableValue input;
         private final ObservableValue output;
         private boolean closed;
 
-        SimpleSwitch(ObservableValue input, ObservableValue output) {
+        UniDirectionalSwitch(ObservableValue input, ObservableValue output) {
             this.input = input;
             this.output = output;
         }
@@ -212,7 +228,7 @@ public class Switch implements Element, NodeInterface {
     }
 
     /**
-     * represents a switch
+     * Represents a real bidirectional switch.
      */
     public static final class RealSwitch implements SwitchModel {
         private final CommonBusValue input1;

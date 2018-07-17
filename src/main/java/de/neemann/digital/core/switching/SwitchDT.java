@@ -343,7 +343,7 @@ public class SwitchDT implements Element, NodeInterface {
         private final boolean invert;
         private boolean closed;
         private final Switch.RealSwitch rsw;
-        private final Switch.SimpleSwitch ssw;
+        private final Switch.UniDirectionalSwitch ssw;
 
         /**
          * Creates a new instance.
@@ -361,7 +361,7 @@ public class SwitchDT implements Element, NodeInterface {
             this.invert = invert;
             this.closed = false;
             this.rsw = new Switch.RealSwitch(this.in1, this.in2);
-            this.ssw = new Switch.SimpleSwitch(this.input1, this.output3);
+            this.ssw = new Switch.UniDirectionalSwitch(this.input1, this.output3);
         }
 
         @Override

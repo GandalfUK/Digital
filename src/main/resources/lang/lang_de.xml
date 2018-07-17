@@ -952,6 +952,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_isHighZ">Eingang kann hochohmig sein</string><!-- In, Splitter -->
     <string name="key_isHighZ_tt">Wenn gesetzt, ist ein hochohmiger Eingang erlaubt. Bei einem Eingangselement ist ein
         hochohmiger Eingang auch erlaubt, wenn der Vorgabewert auf hochohmig ("Z") gesetzt wird.</string>
+    <string name="key_isFloat0">Schwebend 0</string><!-- In, Splitter -->
+    <string name="key_isFloat0_tt">Wenn diese Option aktiviert ist, wird die Eingabe beim Klicken nicht auf 0 zurückgesetzt.
+        Dies macht das Interagieren mit schwimmenden 0 schaltungen (oft mit Relaislogik verwendet) bequemer.</string>
     <string name="key_Description">Beschreibung</string><!-- Out, In, Text -->
     <string name="key_Description_tt">Eine kurze Beschreibung des Elementes.</string>
     <string name="key_Frequency">Frequenz/Hz</string><!-- Clock -->

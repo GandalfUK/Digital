@@ -35,6 +35,7 @@ public class In implements Element {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.INPUT_DEFAULT)
             .addAttribute(Keys.IS_HIGH_Z)
+            .addAttribute(Keys.IS_FLOAT_0)
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.PINNUMBER);

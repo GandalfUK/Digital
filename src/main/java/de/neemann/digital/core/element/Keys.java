@@ -365,6 +365,12 @@ public final class Keys {
             = new Key<>("isHighZ", false).allowGroupEdit().setSecondary();
 
     /**
+     * flag to enable "floating zero mode at an input
+     */
+    public static final Key<Boolean> IS_FLOAT_0
+            = new Key<>("isFloat0", false).allowGroupEdit().setSecondary();
+
+    /**
      * the description of an element
      */
     public static final Key.LongString DESCRIPTION

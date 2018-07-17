@@ -37,6 +37,7 @@ public class InputShape implements Shape {
     private Value value;
     private Value inValue;
     private final boolean isHighZ;
+    private final boolean isFloat0;
 
     /**
      * Creates a new instance
@@ -56,6 +57,7 @@ public class InputShape implements Shape {
         format = attr.get(Keys.INT_FORMAT);
 
         isHighZ = attr.get(Keys.INPUT_DEFAULT).isHighZ() || attr.get(Keys.IS_HIGH_Z);
+        isFloat0 = attr.get(Keys.IS_FLOAT_0);
     }
 
     @Override
@@ -73,11 +75,17 @@ public class InputShape implements Shape {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
                     modelSync.access(() -> {
-                        if (isHighZ) {
-                            if (value.isHighZ()) value.setValue(0);
-                            else if (value.getValue() == 0) value.setValue(1);
-                            else value.setToHighZ();
-                        } else
+                        if (isHighZ || isFloat0)
+                            if (value.isHighZ())
+                                if (isFloat0)
+                                    value.setValue(1);
+                                else
+                                    value.setValue(0);
+                            else if (value.getValue() == 0)
+                                value.setValue(1);
+                            else
+                                value.setToHighZ();
+                        else
                             value.setValue(1 - value.getValue());
                     });
                     return true;

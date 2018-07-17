@@ -948,6 +948,9 @@
     <string name="key_isHighZ">Is three-state input</string><!-- In, Splitter -->
     <string name="key_isHighZ_tt">If set the input is allowed to be in high-z state. At the input component this is
         also allowed if high-z ("Z") is set as the default value.</string>
+    <string name="key_isFloat0">Floating 0</string><!-- In, Splitter -->
+    <string name="key_isFloat0_tt">If set the input will not cycle to 0 when clicked.
+            This makes interacing with floating 0 circuits (often used with relay logic) more convenient.</string>
     <string name="key_Description">Description</string><!-- Out, In, Text -->
     <string name="key_Description_tt">A short description of this element and its usage.</string>
     <string name="key_Frequency">Frequency/Hz</string><!-- Clock -->

@@ -109,8 +109,8 @@ public class RelayDT extends Node implements Element {
             outputAC = new ObservableValue("AC" + num, bits).setBidirectional().setToHighZ();
             outputB = new ObservableValue("B" + num, bits).setBidirectional().setToHighZ();
             outputC = new ObservableValue("C" + num, bits).setBidirectional().setToHighZ();
-            s1 = new Switch(outputAB, outputB, false);
-            s2 = new Switch(outputAC, outputC, true);
+            s1 = new Switch(outputAB, outputB, true);
+            s2 = new Switch(outputAC, outputC, false);
         }
 
         private void addOutputs(ObservableValues.Builder ov) {
@@ -128,8 +128,8 @@ public class RelayDT extends Node implements Element {
         }
 
         public void setClosed(boolean isClosed) {
-            s1.setClosed(isClosed);
-            s2.setClosed(!isClosed);
+            s1.setClosed(!isClosed);
+            s2.setClosed(isClosed);
         }
     }
 }

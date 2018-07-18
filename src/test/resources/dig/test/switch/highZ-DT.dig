@@ -81,6 +81,10 @@ z z  z   z
           <string>rotation</string>
           <rotation rotation="1"/>
         </entry>
+        <entry>
+          <string>relayNormallyClosed</string>
+          <boolean>true</boolean>
+        </entry>
       </elementAttributes>
       <pos x="300" y="300"/>
     </visualElement>
@@ -96,7 +100,7 @@ z z  z   z
     </wire>
     <wire>
       <p1 x="240" y="320"/>
-      <p2 x="300" y="320"/>
+      <p2 x="280" y="320"/>
     </wire>
     <wire>
       <p1 x="280" y="200"/>
@@ -119,8 +123,8 @@ z z  z   z
       <p2 x="280" y="260"/>
     </wire>
     <wire>
-      <p1 x="300" y="300"/>
-      <p2 x="300" y="320"/>
+      <p1 x="280" y="300"/>
+      <p2 x="280" y="320"/>
     </wire>
     <wire>
       <p1 x="300" y="240"/>

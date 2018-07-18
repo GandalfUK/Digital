@@ -55,12 +55,16 @@ public class RelayDTShape implements Shape {
                     .add(new Pin(new Vector(0, -SIZE * 3), inputs.get(0)))
                     .add(new Pin(new Vector(SIZE * 2, -SIZE * 3), inputs.get(1)));
 
-            for (int p = 0; p < poles; p++)
+            final int relayStepY = 2 * SIZE;
+            int relayBaseY = 0;
+            for (int p = 0; p < poles; p++){
                 pins
-                    .add(new Pin(new Vector(0, p * SIZE * 2), outputs.get(p * 4)))
-                    .add(new Pin(new Vector(0, p * SIZE * 2), outputs.get(p * 4 + 1)))
-                    .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2), outputs.get(p * 4 + 2)))
-                    .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2 - SIZE), outputs.get(p * 4 + 3)));
+                    .add(new Pin(new Vector(0, relayBaseY - SIZE), outputs.get(p * 4)))
+                    .add(new Pin(new Vector(0, relayBaseY - SIZE), outputs.get(p * 4 + 1)))
+                    .add(new Pin(new Vector(SIZE * 2, relayBaseY), outputs.get(p * 4 + 2)))
+                    .add(new Pin(new Vector(SIZE * 2, relayBaseY - SIZE), outputs.get(p * 4 + 3)));
+                relayBaseY+=relayStepY;
+            }
         }
         return pins;
     }
@@ -81,22 +85,24 @@ public class RelayDTShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        final int relayBaseY = 2 * SIZE;
         final int relayTipY;
         if (relayIsClosed) {
-            relayTipY = 0;
-        } else {
             relayTipY = SIZE;
+        } else {
+            relayTipY = 0;
         }
-        int yOffs = (SIZE / 4) + (relayTipY / 2);
 
+        final int relayStepY = 2 * SIZE;
+        int relayBaseY = 0;
         for (int p = 0; p < poles; p++) {
             graphic.drawPolygon(new Polygon(false)
-                                .add(0, p * relayBaseY)
-                                .add(0, (p * relayBaseY) - SIZE2)
-                                .add(SIZE * 2, (p * relayBaseY) - relayTipY), Style.NORMAL);
+                                .add(0, relayBaseY - SIZE)
+                                .add(0, relayBaseY - SIZE2)
+                                .add(SIZE * 2, relayBaseY - relayTipY), Style.NORMAL);
+            relayBaseY+=relayStepY;
         }
 
+        final int yOffs = (SIZE / 4) + (relayTipY / 2);
         graphic.drawLine(new Vector(SIZE, (poles - 1) * SIZE * 2 - yOffs), new Vector(SIZE, 1 - SIZE * 2), Style.DASH);
 
         // the coil
